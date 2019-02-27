@@ -8,10 +8,42 @@ $(function() {
         editor.setTheme("ace/theme/monokai");
 
         editor.setOptions({
-            font: "33px",
+            fontSize: "22px",
             maxLines: 30,
             mode: "ace/mode/python",
             autoScrollEditorIntoView: true
+        });
+
+
+        editor.getSession().on('change', function() {
+            var code = editor.getValue();
+            $.ajax({
+                url: "/execute",
+                type: "POST",
+                data: code,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    var result_code = $(".code-result");
+                    result_code.text(response.result);
+                    if (response.line) {
+                        editor.getSession().setAnnotations([{
+                          row: response.line,
+                          column: 0,
+                          text: response.result, // Or the Json reply from the parser
+                          type: "error" // also warning and information
+                        }]);
+                        result_code.css("color", "red");
+                    }
+                    else {
+                        editor.getSession().clearAnnotations();
+                        result_code.css("color", "#555");
+                    }
+                },
+                error: function (xhr, err, traceback) {
+                    console.log(xhr, err, traceback);
+                }
+            })
         });
 
         ace.config.loadModule("ace/ext/emmet", function() {
@@ -24,7 +56,8 @@ $(function() {
 
             editor.setOptions({
                 enableSnippets: true,
-                enableBasicAutocompletion: true
+                enableBasicAutocompletion: true,
+                enableLiveAutocompletion: true
             });
         });
     } else {

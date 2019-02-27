@@ -1,0 +1,5 @@
+python:
+  build: .
+  container_name: python
+  volumes:
+    - ./:/app
