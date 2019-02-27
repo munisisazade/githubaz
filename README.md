@@ -1,2 +1,2 @@
-# githubaz
+# Python.az
 Python
