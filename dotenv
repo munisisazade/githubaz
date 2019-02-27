@@ -1,0 +1,4 @@
+source .venv/bin/activate
+export FLASK_APP="run.py"
+export SECRET="xpt)(pukkag69g0c%a3)3p)91+xu*dpyyy6jt&)@s(c#3at-kd"
+export APP_SETTINGS="dev"
