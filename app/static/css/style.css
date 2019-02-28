@@ -3966,3 +3966,11 @@ select:focus {
 .index2 .contact .shapecircle {
   top: 70px;
   right: -70px; }
+
+.code-result {
+  border: 1px solid #ddd;
+  height: 150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0 10px;
+}
